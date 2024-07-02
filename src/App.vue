@@ -1,17 +1,20 @@
 <script>
-  import HelloWorld from './components/HelloWorld.vue';
+ 
+  import AppDishes from './components/AppDishes.vue';
+  import DishCard from './components/DishCard.vue';
 
   export default {
     components: {
-      HelloWorld,
+      AppDishes,
+      DishCard
     }
   }
 </script>
 
 <template>
-  <HelloWorld></HelloWorld>
   <main>
-    
+    <AppDishes></AppDishes>
+    <DishCard></DishCard> 
   </main>
 </template>
 

@@ -10,6 +10,9 @@
 
 <template>
   <HelloWorld></HelloWorld>
+  <main>
+    
+  </main>
 </template>
 
 <style lang="scss">

@@ -1,11 +1,13 @@
 <script>
     import axios from 'axios';
+    import { store } from '../store.js';
 
     export default{
         name: 'AppAside',
         data(){
             return {
-                foodTypes: []
+                foodTypes: [],
+                store
             }
         },
         methods: {
@@ -28,7 +30,7 @@
         <div class="position-sticky pt-3">
             <form>
                 <div class="form-check form-switch ms-4 mb-2" v-for="foodType in foodTypes">
-                    <input class="form-check-input custom-color-switch" type="checkbox" role="switch" value="{{ foodType.type_name }}" id="">
+                    <input class="form-check-input custom-color-switch" type="checkbox" role="switch" :value="foodType.id" id="" v-model="store.selectedTypes">
                     <label class="form-check-label" for=""> {{ foodType.type_name }}</label>
                 </div>
             </form>

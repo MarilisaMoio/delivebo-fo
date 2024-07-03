@@ -1,6 +1,7 @@
 <script>
     import {toRaw} from 'vue';
     import axios from 'axios';
+    import { store } from '../store.js';
     import RestaurantCard from '../components/RestaurantCard.vue';
     
     export default{
@@ -11,7 +12,7 @@
         data(){
             return {
                 restaurants: [],
-                selectedTypes: []
+                store
             };
         },
         methods: {
@@ -26,14 +27,15 @@
          // console.log(types);
           let typeArray = [];
           // This transform a proxy array to a regular array
-          let actualSearch = toRaw(this.selectedTypes);
+          let actualSearch = toRaw(store.selectedTypes);
           types.forEach(type => {
             typeArray.push(type.id);
           });
           typeArray.sort();
-          this.selectedTypes.sort();
+          store.selectedTypes.sort();
           // This to compare two arrays and returns if true or false
-          return JSON.stringify(actualSearch) == JSON.stringify(typeArray);
+          // return JSON.stringify(actualSearch) == JSON.stringify(typeArray);
+          return store.selectedTypes.every(type => typeArray.includes(type));
         }
     },
     mounted() {
@@ -45,7 +47,7 @@
 <template>
     <div>
       <h2>Lista di Ristoranti</h2>
-      <template v-if="selectedTypes.length == 0">
+      <template v-if="store.selectedTypes.length == 0">
         <RestaurantCard v-for="restaurant in restaurants" :key="restaurant.id" :restaurant="restaurant" ></RestaurantCard>
       </template>
       <template v-else>

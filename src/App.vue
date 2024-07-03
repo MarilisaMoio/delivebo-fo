@@ -1,15 +1,18 @@
 <script>
   import AppHeader from './components/AppHeader.vue';
+  import AppAside from "./components/AppAside.vue";
 
   export default {
     components: {
       AppHeader,
+      AppAside,
     }
   }
 </script>
 
 <template>
   <AppHeader></AppHeader>
+  <AppAside></AppAside>
   <main>
 
   </main>

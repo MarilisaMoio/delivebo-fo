@@ -1,25 +1,37 @@
 <script>
- 
-  import AppDishes from './components/AppDishes.vue';
-  import DishCard from './components/DishCard.vue';
+
+
+  import AppHeader from './components/AppHeader.vue';
+  import AppAside from "./components/AppAside.vue";
 
   export default {
     components: {
-      AppDishes,
-      DishCard
+      AppHeader,
+      AppAside,
     }
+
   }
 </script>
 
 <template>
-  <main>
-    <AppDishes></AppDishes>
-    <DishCard></DishCard> 
-  </main>
+
+  <AppHeader></AppHeader>
+  <div class="container-fluid">
+    <div class="row">
+      <AppAside></AppAside>
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-3 overflow-auto h-100">
+        <router-view></router-view>
+      </main>
+    </div>
+  </div>
+  
 </template>
 
 <style lang="scss">
 @use './style/generic';
+@use './style/partials/variables' as *;
 
-
+div.row{
+  height: calc(100vh - $header-h);
+}
 </style>

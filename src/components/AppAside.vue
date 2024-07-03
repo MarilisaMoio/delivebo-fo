@@ -40,8 +40,6 @@
     @use '../style/partials/variables' as *;
 
     nav{
-        position: relative;
-        height: calc(100vh - $header-h);
         border-right: 1px solid $main_color;
     }
 

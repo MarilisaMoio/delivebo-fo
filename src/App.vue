@@ -1,5 +1,6 @@
 <script>
 
+
   import AppHeader from './components/AppHeader.vue';
   import AppAside from "./components/AppAside.vue";
 
@@ -13,6 +14,7 @@
 </script>
 
 <template>
+
   <AppHeader></AppHeader>
   <div class="container-fluid">
     <div class="row">
@@ -22,6 +24,7 @@
       </main>
     </div>
   </div>
+  
 </template>
 
 <style lang="scss">

@@ -12,14 +12,14 @@ export default {
 
 <template>
   <div class="card shadow-sm">
-    <img :src="restaurant.img" class="card-img-top" :alt="restaurant.restaurant_name">
+    <img :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" class="card-img-top" :alt="restaurant.restaurant_name">
     <div class="card-body">
       <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
       <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> {{ restaurant.address }}</p>
       <p class="card-text"><i class="fas fa-phone-alt me-2"></i> {{ restaurant.phone }}</p>
       <p class="card-text"><i class="fas fa-envelope me-2"></i> {{ restaurant.email }}</p>
       <p class="card-text"><i class="fas fa-id-card me-2"></i> P. IVA: {{ restaurant.vat_number }}</p>
-      <a href="#" class="btn btn-primary">Apri Menu</a>
+        <router-link class="btn btn-primary" :to="{ name: 'single-menu', params: { slug: restaurant.slug } }">Vedi Menu</router-link>
     </div>
   </div>
 </template>

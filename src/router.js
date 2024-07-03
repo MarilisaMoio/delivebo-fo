@@ -12,8 +12,8 @@ const router = createRouter({
         },
         {
             path: '/:slug',
-            name: 'dishes',
-            component: AppDishes
+            name: 'single-menu',
+            component: AppDishes,
         },
     ]
 });

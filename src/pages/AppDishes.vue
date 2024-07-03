@@ -10,12 +10,15 @@ export default {
   data() {
     return {
       dishes: [],
-      dishesUrl: ""
     };
   },
   methods: {
     getDishes() {
-      axios.get('http://127.0.0.1:8000/api/dishes?restaurant=14')
+      axios.get('http://127.0.0.1:8000/api/dishes', {
+        params: {
+          slug: this.$route.params.slug
+        }
+      })
         .then((response) => {
           this.dishes = response.data.results;
         })     

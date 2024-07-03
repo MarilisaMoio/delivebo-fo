@@ -1,5 +1,4 @@
 <script>
-    import {toRaw} from 'vue';
     import axios from 'axios';
     import { store } from '../store.js';
     import RestaurantCard from '../components/RestaurantCard.vue';
@@ -20,14 +19,11 @@
             axios.get(`http://127.0.0.1:8000/api/restaurants`)
             .then((response) => {
                 this.restaurants = response.data.results;
-                // console.log(response.data.results[0].types);
             });
         },
         ifArraysCoincide(types) {
          // console.log(types);
           let typeArray = [];
-          // This transform a proxy array to a regular array
-          let actualSearch = toRaw(store.selectedTypes);
           types.forEach(type => {
             typeArray.push(type.id);
           });
@@ -53,13 +49,8 @@
       <template v-else>
       <template v-for="restaurant in restaurants">
         <RestaurantCard v-if="ifArraysCoincide(restaurant.types)" :restaurant="restaurant" ></RestaurantCard>
-     </template>
       </template>
-<!--       <ul>
-        <li v-for="restaurant in restaurants" :key="restaurant.id">
-          {{ restaurant.restaurant_name }}
-        </li>
-      </ul> -->
+      </template>
     </div>
   </template>
 

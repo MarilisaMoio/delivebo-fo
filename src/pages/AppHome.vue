@@ -70,9 +70,9 @@
     text-decoration: none;
 }
    .ms-bg{
-    box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
-    -webkit-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
-    -moz-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
+    box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
+    -webkit-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
+    -moz-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
     border-radius: 30px;
 }
 .map{
@@ -111,9 +111,9 @@ p{
     z-index: 10;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
-    -webkit-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
-    -moz-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.05);
+    box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
+    -webkit-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
+    -moz-box-shadow: 0px 14px 35px 33px rgba(0,0,0,0.08);
     padding: 1vw 1.2vw;
     max-width: 80%;
     p{

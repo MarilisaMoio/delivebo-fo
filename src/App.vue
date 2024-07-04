@@ -10,16 +10,10 @@
 </script>
 
 <template>
-
   <AppHeader></AppHeader>
-  <div class="container-fluid">
-    <div class="row">
-      <main class="px-md-2 pt-3 overflow-auto h-100">
-        <router-view></router-view>
-      </main>
-    </div>
-  </div>
-  
+  <main class="overflow-auto h-100">
+    <router-view></router-view>
+  </main>
 </template>
 
 <style lang="scss">

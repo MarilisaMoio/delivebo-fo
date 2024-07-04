@@ -41,24 +41,60 @@
 </script>
 
 <template>
-    <div>
-      <h2>Lista di Ristoranti</h2>
-      <template v-if="store.selectedTypes.length == 0">
-        <RestaurantCard v-for="restaurant in restaurants" :key="restaurant.id" :restaurant="restaurant" ></RestaurantCard>
-      </template>
-      <template v-else>
-      <template v-for="restaurant in restaurants">
-        <RestaurantCard v-if="ifArraysCoincide(restaurant.types)" :restaurant="restaurant" ></RestaurantCard>
-      </template>
-      </template>
+
+  <div class="restaurant-list">
+
+    <div class="container">
+      <div class="row restaurant-flex">
+        <template v-if="store.selectedTypes.length == 0">
+          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
+            <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
+          </div>
+        </template>
+        <template v-else>
+          <template v-for="(restaurant, index) in restaurants">
+            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
+              <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
+            </div>
+          </template>
+        </template>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
 
 <style scoped lang="scss">
   @use '../style/partials/variables' as *;
 
-  div{
-    background-color: $main_color;
+  .restaurant-list {
+    padding: 20px 0;
   }
 
+  .restaurant-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  // ANIMATION FOR THE CARDS
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@for $i from 0 through 20 {
+  .delay-#{$i} {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
 </style>

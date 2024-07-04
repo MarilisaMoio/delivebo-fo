@@ -18,30 +18,27 @@ export default {
       <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> {{ restaurant.address }}</p>
       <p class="card-text"><i class="fas fa-phone-alt me-2"></i> {{ restaurant.phone }}</p>
       <p class="card-text"><i class="fas fa-envelope me-2"></i> {{ restaurant.email }}</p>
-      <p class="card-text"><i class="fas fa-id-card me-2"></i> P. IVA: {{ restaurant.vat_number }}</p>
+
+      <!-- <p class="card-text"><i class="fas fa-id-card me-2"></i> P. IVA: {{ restaurant.vat_number }}</p> -->
+      <span class="d-flex justify-content-center">  
         <router-link class="btn btn-primary" :to="{ name: 'single-menu', params: { slug: restaurant.slug } }">Vedi Menu</router-link>
+      </span>
     </div>
   </div>
 </template>
 
 <style scoped>
+
 .card {
-  border: none;
-  border-radius: 10px;
+  
+  border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(149, 7, 7, 0.1);
 }
 
 .card:hover {
   transform: translateY(-5px);
-}
-
-.card-img-top {
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
 .card-body {
@@ -49,7 +46,7 @@ export default {
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 0.75rem;
   font-weight: bold;
 }
@@ -60,16 +57,26 @@ export default {
 }
 
 .btn-primary {
+  margin-top: 25px;
   display: inline-block;
-  background-color: #3498db;
+  background-color: #00ccbc;
   color: white;
   padding: 0.5rem 1rem;
   text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  transition: background-color 0.5s ease;
 }
 
 .btn-primary:hover {
-  background-color: #2980b9;
+  background-color: #169280;
 }
+
+/* STYLE PER L'IMAGINI */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 </style>

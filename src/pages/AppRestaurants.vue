@@ -47,13 +47,13 @@
     <div class="container">
       <div class="row restaurant-flex">
         <template v-if="store.selectedTypes.length == 0">
-          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
+          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6">
             <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
           </div>
         </template>
         <template v-else>
           <template v-for="(restaurant, index) in restaurants">
-            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
+            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6">
               <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
             </div>
           </template>

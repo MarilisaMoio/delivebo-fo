@@ -2,11 +2,13 @@
     import axios from 'axios';
     import { store } from '../store.js';
     import RestaurantCard from '../components/RestaurantCard.vue';
+    import AppChecks from "../components/AppChecks.vue"
     
     export default{
         name: 'AppRestaurants',
         components:  {
-          RestaurantCard
+          RestaurantCard,
+          AppChecks
         },
         data(){
             return {
@@ -45,6 +47,7 @@
   <div class="restaurant-list">
 
     <div class="container">
+      <AppChecks></AppChecks>
       <div class="row restaurant-flex">
         <template v-if="store.selectedTypes.length == 0">
           <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6">

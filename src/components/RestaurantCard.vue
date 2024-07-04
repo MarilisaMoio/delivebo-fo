@@ -18,6 +18,7 @@ export default {
       <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> {{ restaurant.address }}</p>
       <p class="card-text"><i class="fas fa-phone-alt me-2"></i> {{ restaurant.phone }}</p>
       <p class="card-text"><i class="fas fa-envelope me-2"></i> {{ restaurant.email }}</p>
+
       <!-- <p class="card-text"><i class="fas fa-id-card me-2"></i> P. IVA: {{ restaurant.vat_number }}</p> -->
       <span class="d-flex justify-content-center">  
         <router-link class="btn btn-primary" :to="{ name: 'single-menu', params: { slug: restaurant.slug } }">Vedi Menu</router-link>

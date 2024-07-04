@@ -1,5 +1,4 @@
 <script>
-    import {toRaw} from 'vue';
     import axios from 'axios';
     import { store } from '../store.js';
     import RestaurantCard from '../components/RestaurantCard.vue';
@@ -20,14 +19,11 @@
             axios.get(`http://127.0.0.1:8000/api/restaurants`)
             .then((response) => {
                 this.restaurants = response.data.results;
-                // console.log(response.data.results[0].types);
             });
         },
         ifArraysCoincide(types) {
          // console.log(types);
           let typeArray = [];
-          // This transform a proxy array to a regular array
-          let actualSearch = toRaw(store.selectedTypes);
           types.forEach(type => {
             typeArray.push(type.id);
           });
@@ -45,18 +41,19 @@
 </script>
 
 <template>
+
   <div class="restaurant-list">
 
     <div class="container">
       <div class="row restaurant-flex">
         <template v-if="store.selectedTypes.length == 0">
-          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 mb-4">
+          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
             <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
           </div>
         </template>
         <template v-else>
           <template v-for="(restaurant, index) in restaurants">
-            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 mb-4">
+            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-md-4 col-lg-3 mb-4 col-sm-6">
               <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
             </div>
           </template>

@@ -13,7 +13,7 @@ const router = createRouter({
         {
             path: '/:slug',
             name: 'single-menu',
-            component: AppDishes
+            component: AppDishes,
         },
     ]
 });

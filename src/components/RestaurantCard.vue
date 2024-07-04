@@ -14,6 +14,9 @@ export default {
   <div class="card shadow-sm">
     <img :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" class="card-img-top" :alt="restaurant.restaurant_name">
     <div class="card-body">
+      <div class="ms-card-types">
+          <span class="ms-bg-main badge rounded-pill d-inline-block me-1" v-for="singleRestaurantType in restaurant.types ">{{ singleRestaurantType.type_name }}</span> 
+      </div>
       <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
       <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> {{ restaurant.address }}</p>
       <p class="card-text"><i class="fas fa-phone-alt me-2"></i> {{ restaurant.phone }}</p>
@@ -27,7 +30,8 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use '../style/partials/variables' as *;
 
 .card {
   
@@ -43,6 +47,13 @@ export default {
 
 .card-body {
   padding: 1.5rem;
+  position: relative;
+}
+
+.ms-card-types {
+  position:absolute;
+  top: 0;
+  transform: translateY(-50%);
 }
 
 .card-title {
@@ -69,6 +80,10 @@ export default {
 
 .btn-primary:hover {
   background-color: #169280;
+}
+
+.ms-bg-main {
+  background-color: $main_color;
 }
 
 /* STYLE PER L'IMAGINI */

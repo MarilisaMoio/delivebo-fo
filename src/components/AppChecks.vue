@@ -27,7 +27,7 @@
 
 <template>
     <nav>
-        <div class="position-sticky pt-3">
+        <div class="pt-3">
             <div>Filtra i ristoranti:</div>
             <div class="form-check form-switch d-inline-block ms-margin-start" v-for="foodType in foodTypes">
                 <input class="form-check-input custom-color-switch" type="checkbox" role="switch" :value="foodType.id" id="" v-model="store.selectedTypes">

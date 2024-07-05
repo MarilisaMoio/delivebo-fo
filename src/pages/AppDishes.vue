@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     getDishes() {
-      axios.get('http://127.0.0.1:8000/api/dishes?slug=sakura')
+      axios.get(`http://127.0.0.1:8000/api/dishes?slug=${this.$route.params.slug}`)
         .then((response) => {
           this.dishes = response.data.results;
           this.restaurant = response.data.results[0].restaurant
@@ -32,10 +32,10 @@ export default {
 </script>
 
 <template>
-    <section>
-     <div class="container">
-      <div class="d-flex align-items-center restaurant-info">
-        <div class="image-clipper me-5">
+  <section>
+    <div class="container">
+      <div class="d-flex align-items-center restaurant-info mt-4">
+        <div class="image-clipper me-4">
           <img v-if="restaurant.img !== null" class="h-100" :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" :alt="restaurant.name">
           <!-- ! inserire qui l'immagine giusta -->
           <img v-else src="../../public/defaultDishes.svg" class="card-img-top" alt="default-img">
@@ -54,8 +54,8 @@ export default {
       <div class="d-flex flex-wrap gap-1 justify-content-center"> 
          <DishCard :class="'fade-in delay-'" v-for="dish in dishes" :dish="dish"></DishCard>
       </div>
-     </div>
-    </section>
+    </div>
+  </section>
 
 </template>
 

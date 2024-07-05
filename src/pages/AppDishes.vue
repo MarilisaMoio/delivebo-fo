@@ -58,7 +58,8 @@ export default {
 <style scoped lang="scss">
   @use '../style/partials/variables' as *;
   .image-clipper{
-    width: clamp(50px, 30vw, 240px);
+    width: clamp(145px, 30vw, 240px);
+    min-width: 145px;
     overflow: hidden;
     aspect-ratio: 1;
     border-radius: 50%;

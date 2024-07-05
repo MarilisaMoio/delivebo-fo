@@ -17,8 +17,8 @@ export default {
       <div class="ms-card-types">
           <span class="ms-bg-main badge rounded-pill d-inline-block me-1" v-for="singleRestaurantType in restaurant.types ">{{ singleRestaurantType.type_name }}</span> 
       </div>
-      <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
-      <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i> {{ restaurant.address }}</p>
+      <h5 class="card-title w-100 text-truncate">{{ restaurant.restaurant_name }}</h5>
+      <p class="card-text"><i class="fas fa-map-marker-alt me-2"></i>{{ restaurant.address }}</p>
       <p class="card-text"><i class="fas fa-phone-alt me-2"></i> {{ restaurant.phone }}</p>
       <p class="card-text"><i class="fas fa-envelope me-2"></i> {{ restaurant.email }}</p>
 

@@ -50,13 +50,13 @@
       <AppChecks></AppChecks>
       <div class="row restaurant-flex">
         <template v-if="store.selectedTypes.length == 0">
-          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6 align-content-stretch">
+          <div v-for="(restaurant, index) in restaurants" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6 align-content-stretch h-ms">
             <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
           </div>
         </template>
         <template v-else>
           <template v-for="(restaurant, index) in restaurants">
-            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6">
+            <div v-if="ifArraysCoincide(restaurant.types)" :key="restaurant.id" class="col-12 col-lg-4 mb-4 col-xxl-3 col-md-6 align-content-stretch h-ms">
               <RestaurantCard :restaurant="restaurant" :class="'fade-in delay-' + index"></RestaurantCard>
             </div>
           </template>
@@ -76,6 +76,10 @@
   .restaurant-flex {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .h-ms{
+    max-height: 530px;
   }
 
   // ANIMATION FOR THE CARDS

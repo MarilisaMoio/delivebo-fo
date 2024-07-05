@@ -12,9 +12,11 @@
                     <img src="../../public/delivebooLogo.svg" alt="" class="w-100">
                 </router-link>
             </div>
-        <div>
-            qui carrello
-        </div>
+            <div v-if="$route.name !== 'home'">
+                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasExample">
+                    <i class="fa-solid fa-cart-shopping fs-4"></i>
+                </button>
+            </div>
         </div>
     </header>
 </template>
@@ -27,6 +29,11 @@ header{
     height: $header-h;
     img{
         height: 100%;
+    }
+    button{
+        background-color: transparent;
+        border: none;
+        color: white
     }
 }
 

@@ -1,9 +1,11 @@
 <script>
   import AppHeader from './components/AppHeader.vue';
+  import AppOffcanvas from "./components/AppOffcanvas.vue"
 
   export default {
     components: {
       AppHeader,
+      AppOffcanvas,
     }
 
   }
@@ -13,6 +15,7 @@
   <AppHeader></AppHeader>
   <main class="overflow-auto">
     <router-view></router-view>
+    <AppOffcanvas></AppOffcanvas>
   </main>
 </template>
 

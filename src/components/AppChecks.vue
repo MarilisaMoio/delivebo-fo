@@ -29,7 +29,7 @@
     <nav>
         <div class="pt-3">
             <div>Filtra i ristoranti:</div>
-            <div class="form-check form-switch d-inline-block ms-margin-start" v-for="foodType in foodTypes">
+            <div class="form-check form-switch d-inline-block me-3" v-for="foodType in foodTypes">
                 <input class="form-check-input custom-color-switch" type="checkbox" role="switch" :value="foodType.id" id="" v-model="store.selectedTypes">
                 <label class="form-check-label" for=""> {{ foodType.type_name }}</label>
             </div>
@@ -52,11 +52,6 @@
         background-color: $main_color;
         border-color: $main_color;
         }   
-    }
-
-    //controlla il responsive!
-    .ms-margin-start + .ms-margin-start{
-        margin-left: 40px
     }
 
 </style>

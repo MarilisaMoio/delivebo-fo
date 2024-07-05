@@ -11,9 +11,9 @@ export default {
 </script>
 
 <template>
-  <div class="card shadow-sm">
+  <div class="card shadow-sm h-100">
     <img :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" class="card-img-top" :alt="restaurant.restaurant_name">
-    <div class="card-body">
+    <div class="card-body d-flex flex-column">
       <div class="ms-card-types">
           <span class="ms-bg-main badge rounded-pill d-inline-block me-1" v-for="singleRestaurantType in restaurant.types ">{{ singleRestaurantType.type_name }}</span> 
       </div>
@@ -23,9 +23,9 @@ export default {
       <p class="card-text"><i class="fas fa-envelope me-2"></i> {{ restaurant.email }}</p>
 
       <!-- <p class="card-text"><i class="fas fa-id-card me-2"></i> P. IVA: {{ restaurant.vat_number }}</p> -->
-      <span class="d-flex justify-content-center">  
+      <div class="d-flex justify-content-center mt-auto">  
         <router-link class="btn btn-primary" :to="{ name: 'single-menu', params: { slug: restaurant.slug } }">Vedi Menu</router-link>
-      </span>
+      </div>
     </div>
   </div>
 </template>

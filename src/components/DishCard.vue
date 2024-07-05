@@ -1,10 +1,55 @@
 <script>
+import { store } from '../store.js'
+
 export default {
   name: 'DishCard',
   props: {
-    dish: Object
+    dish: Object,
+    store,
+  },
+  methods: {
+    insertDishInCart(dish){
+      console.log('ConsoleLog per il piatto', dish)
+
+      if(!store.currentRestaurant){
+        store.currentRestaurant = dish.restaurant_id;
+      }
+
+      let flag = false;
+      let selectedDish = null;
+
+      //se il carrello non è vuoto
+      if(store.currentCart.length !== 0){
+        //controlla tutti gli elementi nel carrello e verifica se il dish già esiste
+        store.currentCart.forEach((cartElement, index) => {
+          console.log('consolelog per l\'elemento in carrello', cartElement.dishInfo)
+          //se esiste allora aumenta la quantità di quel dish
+          if(cartElement.dishInfo == dish){
+              flag = true;
+              cartElement.quantity++
+          }
+          console.log('quantità in carrello', cartElement.quantity)        
+        })
+        //se non è stato trovato nessun doppione, inserisci il piatto
+        if(!flag){
+            selectedDish = {
+            quantity: 1,
+            dishInfo: dish
+          }
+          store.currentCart.push(selectedDish)
+        }
+      //se invece il carrello è vuoto inserisci direttamente il piatto
+      } else {
+        selectedDish = {
+        quantity: 1,
+        dishInfo: dish
+        }
+        store.currentCart.push(selectedDish)
+      }
+
+      console.log(store.currentCart);
+    }
   }
-  
 }
 </script>
 
@@ -27,7 +72,7 @@ export default {
       </div>
     
       <div class="d-flex justify-content-center mb-2">
-        <button class="button-19" role="button">AGGIUNGI <i class="fa-solid fa-cart-plus"></i></button> 
+        <button @click="insertDishInCart(dish)" class="button-19" role="button">AGGIUNGI <i class="fa-solid fa-cart-plus"></i></button> 
       </div>
     </div>
     </div>

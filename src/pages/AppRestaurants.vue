@@ -38,6 +38,8 @@
     },
     mounted() {
         this.getRestaurants();
+        console.log(store.currentCart);
+        console.log(store.currentRestaurant);
     }
 }
 </script>

@@ -7,50 +7,79 @@ export default {
     dish: Object,
     store,
   },
+  data() {
+    return {
+      showModal: false
+    }
+
+  },
   methods: {
     insertDishInCart(dish){
-      console.log('ConsoleLog per il piatto', dish)
+      // console.log(store.currentRestaurant);
+      if(store.currentRestaurant && store.currentRestaurant !== dish.restaurant_id) {
+        this.showModal = true;
+      } else {
 
-      if(!store.currentRestaurant){
-        store.currentRestaurant = dish.restaurant_id;
-      }
-
-      let flag = false;
-      let selectedDish = null;
-
-      //se il carrello non è vuoto
-      if(store.currentCart.length !== 0){
-        //controlla tutti gli elementi nel carrello e verifica se il dish già esiste
-        store.currentCart.forEach((cartElement, index) => {
-          console.log('consolelog per l\'elemento in carrello', cartElement.dishInfo)
-          //se esiste allora aumenta la quantità di quel dish
-          if(cartElement.dishInfo == dish){
-              flag = true;
-              cartElement.quantity++
+        console.log('ConsoleLog per il piatto', dish)
+  
+        if(!store.currentRestaurant){
+          store.currentRestaurant = dish.restaurant_id;
+        }
+        console.log(store.currentRestaurant);
+        let flag = false;
+        let selectedDish = null;
+  
+        //se il carrello non è vuoto
+        if(store.currentCart.length !== 0){
+          //controlla tutti gli elementi nel carrello e verifica se il dish già esiste
+          store.currentCart.forEach((cartElement, index) => {
+            console.log('consolelog per l\'elemento in carrello', cartElement.dishInfo)
+            //se esiste allora aumenta la quantità di quel dish
+            if(cartElement.dishInfo.id == dish.id){
+                flag = true;
+                cartElement.quantity++
+            }
+            console.log('quantità in carrello', cartElement.quantity)        
+          })
+          //se non è stato trovato nessun doppione, inserisci il piatto
+          if(!flag){
+              selectedDish = {
+              quantity: 1,
+              dishInfo: dish
+            }
+            store.currentCart.push(selectedDish)
           }
-          console.log('quantità in carrello', cartElement.quantity)        
-        })
-        //se non è stato trovato nessun doppione, inserisci il piatto
-        if(!flag){
-            selectedDish = {
-            quantity: 1,
-            dishInfo: dish
+        //se invece il carrello è vuoto inserisci direttamente il piatto
+        } else {
+          selectedDish = {
+          quantity: 1,
+          dishInfo: dish
           }
           store.currentCart.push(selectedDish)
         }
-      //se invece il carrello è vuoto inserisci direttamente il piatto
-      } else {
-        selectedDish = {
-        quantity: 1,
-        dishInfo: dish
-        }
-        store.currentCart.push(selectedDish)
+  
+        console.log(store.currentCart);
+        this.saveCart();
       }
-
-      console.log(store.currentCart);
-    }
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+    emptyCart(dish) {
+      store.currentCart = [];
+      store.currentRestaurant = this.dish.restaurant_id;
+      this.toggleModal();
+    },
+    saveCart() {
+      localStorage.setItem('cart', JSON.stringify(store.currentCart));
+      localStorage.setItem('restaurant', store.currentRestaurant);
+    },
+  },
+  mounted() {
+    console.log(store.currentCart);
+    console.log(store.currentRestaurant);
   }
-}
+      }
 </script>
 
 <template>
@@ -77,6 +106,26 @@ export default {
     </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div v-bind="$attrs" :class="['modal', { 'd-block': showModal }]" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Attenzione! Stai cambiando ristorante</h5>
+        </div>
+        <div class="modal-body">
+          <p>Procedendo con l'aggiunta di questo piatto, il carrello si svuoterà. Vuoi procedere?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="toggleModal">No</button>
+          <button type="button" class="btn btn-primary" @click="emptyCart(dish), insertDishInCart(dish)">Aggiungi il nuovo piatto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Overlay per oscurare il resto della pagina -->
+  <div v-if="showModal" class="modal-backdrop show"></div>
 </template>
 
 <style scoped lang="scss">

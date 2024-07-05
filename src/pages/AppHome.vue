@@ -67,6 +67,7 @@
     padding: 20px 24px;
     background-color: $main_color;
     border-radius: 15px;
+    border: none;
     text-decoration: none;
 }
    .ms-bg{

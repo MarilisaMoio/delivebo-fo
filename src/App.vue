@@ -11,7 +11,7 @@
 
 <template>
   <AppHeader></AppHeader>
-  <main class="overflow-auto h-100">
+  <main class="overflow-auto">
     <router-view></router-view>
   </main>
 </template>
@@ -20,7 +20,9 @@
 @use './style/generic';
 @use './style/partials/variables' as *;
 
-div.row{
-  height: calc(100vh - $header-h);
-}
+  main{
+    min-height: calc(100vh - $header-h);
+    background-color: whitesmoke;
+  }
+
 </style>

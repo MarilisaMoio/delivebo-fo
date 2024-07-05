@@ -76,6 +76,7 @@ export default {
   text-decoration: none;
   border-radius: 8px;
   transition: background-color 0.5s ease;
+  border: none;
 }
 
 .btn-primary:hover {
@@ -92,6 +93,10 @@ export default {
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  transition: transform 0.3s ease;
+  &:hover{
+    transform: scale(1.05);
+  }
 }
 
 </style>

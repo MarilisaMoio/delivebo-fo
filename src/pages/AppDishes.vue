@@ -1,3 +1,5 @@
+
+
 <script>
 import axios from 'axios';
 import DishCard from "../components/DishCard.vue"
@@ -15,11 +17,7 @@ export default {
   },
   methods: {
     getDishes() {
-      axios.get('http://127.0.0.1:8000/api/dishes', {
-        params: {
-          slug: this.$route.params.slug
-        }
-      })
+      axios.get('http://127.0.0.1:8000/api/dishes?slug=sakura')
         .then((response) => {
           this.dishes = response.data.results;
           this.restaurant = response.data.results[0].restaurant
@@ -35,6 +33,7 @@ export default {
 
 <template>
     <section>
+     <div class="container">
       <div class="d-flex align-items-center restaurant-info">
         <div class="image-clipper me-5">
           <img v-if="restaurant.img !== null" class="h-100" :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" :alt="restaurant.name">
@@ -51,12 +50,19 @@ export default {
           </div>
         </div>
       </div>
-      <DishCard v-for="dish in dishes" :dish="dish"></DishCard>
+      <span>*Tutti i piatti contrassegnati con  <i class="fa-brands fa-envira"></i> sono privi di carne animale. </span>  
+      <div class="d-flex flex-wrap gap-1 justify-content-center"> 
+         <DishCard :class="'fade-in delay-'" v-for="dish in dishes" :dish="dish"></DishCard>
+      </div>
+     </div>
     </section>
+
 </template>
 
 <style scoped lang="scss">
   @use '../style/partials/variables' as *;
+  
+  //restaurant infos
   .image-clipper{
     width: clamp(145px, 30vw, 240px);
     min-width: 145px;
@@ -84,6 +90,41 @@ export default {
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
+  
+  
+  //dish cards
+  span {font-size: 14px;
+
+  .fa-envira {
+      color: green;
+      font-size: 16px;
+    }
+
+}
+
+  // ANIMATION FOR THE CARDS
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@for $i from 0 through 20 {
+  .delay-#{$i} {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
+
 </style>
 
 

@@ -18,6 +18,9 @@
                 store.currentCart[index].quantity--;
             }
             
+           },
+           increaseQuantity(index){
+            store.currentCart[index].quantity++;
            }  
         }
     }
@@ -49,7 +52,7 @@
                             <div class="d-flex justify-content-end gap-3">
                                 <span @click="this.decreaseQuantity(index, singleItem)" class="ms-hover"><i class="fa-solid fa-minus"></i></span>
                                 <div> {{ store.currentCart[index].quantity }}</div>
-                                <span @click="store.currentCart[index].quantity++" class="ms-hover"><i class="fa-solid fa-plus"></i></span>
+                                <span @click="increaseQuantity(index)" class="ms-hover"><i class="fa-solid fa-plus"></i></span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mb-3 fw-bold">

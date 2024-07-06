@@ -57,7 +57,7 @@
                         </div>
                         <div class="d-flex justify-content-between mb-3 fw-bold">
                             <div>Subtotale:</div>
-                            <div>[prezzo subtotale]</div>
+                            <div>{{ parseFloat(singleItem.dishInfo.price * singleItem.quantity).toFixed(2) }}</div>
                         </div>
                     </div>
                 </div>

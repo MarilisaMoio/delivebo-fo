@@ -13,7 +13,7 @@
                 </router-link>
             </div>
             <div v-if="$route.name !== 'home'">
-                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-controls="offcanvasExample">
+                <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="offcanvasExample">
                     <i class="fa-solid fa-cart-shopping fs-4"></i>
                 </button>
             </div>

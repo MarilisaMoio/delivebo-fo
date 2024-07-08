@@ -109,7 +109,7 @@ export default {
                     </div>
                     <div class="cart-item d-flex justify-content-between mt-2">
                         <strong>Totale</strong>
-                        <strong>27,67 €</strong>
+                        <strong>{{ store.totalPrice }}€</strong>
                     </div>
                 </div>
             </div>

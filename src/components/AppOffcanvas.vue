@@ -1,6 +1,7 @@
 
 <script>
     import { store } from '../store.js';
+    import * as bootstrap from 'bootstrap';
 
     export default{
         name: 'AppOffcanvas',
@@ -10,24 +11,44 @@
             }
         },
         methods: {
-           decreaseQuantity(index) {
+           decreaseQuantity(index, dish) {
             if(store.currentCart[index].quantity == 1){
                 store.currentCart.splice(index, 1);
                 console.log('Elemento eliminato');
+                store.totalPrice = (store.totalPrice - parseFloat(dish.dishInfo.price))
             }else{
                 store.currentCart[index].quantity--;
+                store.totalPrice = (store.totalPrice - parseFloat(dish.dishInfo.price));
             }
+            this.saveCart()
             
            },
-           increaseQuantity(index){
+           increaseQuantity(index, dish){
             store.currentCart[index].quantity++;
-           }  
+            store.totalPrice = (store.totalPrice + parseFloat(dish.dishInfo.price))
+            this.saveCart()
+           },
+            saveCart() {
+                localStorage.setItem('total', store.totalPrice)
+                localStorage.setItem('cart', JSON.stringify(store.currentCart));
+                localStorage.setItem('restaurant', store.currentRestaurant);
+            },
+            closeOffcanvas() {
+                const offcanvasElement = document.getElementById('cartOffcanvas');
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                if (bsOffcanvas) {
+                    bsOffcanvas.hide();
+                }
+                setTimeout(() => {
+                    this.$router.push({ name: 'payments' });
+                }, 200);
+            },   
         }
     }
 </script>
 
 <template>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="cart">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="cartOffcanvas">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="cart-title">Il tuo ordine</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -39,38 +60,40 @@
             </div>
             <div v-if="store.currentCart.length > 0">
                 <div class="mb-4 fw-bold fs-4 "> {{ store.currentCart[0].dishInfo.restaurant.restaurant_name }}</div>
-                <!-- Singol product type -->
+                <!-- Single product type -->
                 <div>
                     <div class="mb-4 ms-border" v-for="singleItem, index in store.currentCart">
-                        <div class="mb-2 fw-bold ms-color">{{ store.currentCart[index].dishInfo.dish_name }} </div>
+                        <div class="mb-2 fw-bold ms-color">{{ singleItem.dishInfo.dish_name }} </div>
                         <div class="d-flex justify-content-between">
                             <div class="mb-2">Prezzo singolo:</div>
-                            <div>{{ store.currentCart[index].dishInfo.price }} €</div>
+                            <div>{{ singleItem.dishInfo.price }} €</div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="mb-2">Quantità:</div>
                             <div class="d-flex justify-content-end gap-3">
                                 <span @click="this.decreaseQuantity(index, singleItem)" class="ms-hover"><i class="fa-solid fa-minus"></i></span>
-                                <div> {{ store.currentCart[index].quantity }}</div>
-                                <span @click="increaseQuantity(index)" class="ms-hover"><i class="fa-solid fa-plus"></i></span>
+                                <div> {{ singleItem.quantity }}</div>
+                                <span @click="increaseQuantity(index, singleItem)" class="ms-hover"><i class="fa-solid fa-plus"></i></span>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mb-3 fw-bold">
                             <div>Subtotale:</div>
-                            <div>{{ parseFloat(singleItem.dishInfo.price * singleItem.quantity).toFixed(2) }}</div>
+                            <div>{{ parseFloat(singleItem.dishInfo.price * singleItem.quantity) }} €</div>
                         </div>
                     </div>
                 </div>
                 
-                <!--/ Singol product type -->
+                <!--/ Single product type -->
                 <!-- Total price and button to payment page -->
                 <div class="mt-4">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between fw-bold">
                         <div>Totale dell'ordine</div>
-                        <div>[cifra totale]</div>
+                        <div>{{ store.totalPrice }} €</div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <!-- TO DO completare rotta  --><router-link  class="btn btn-primary" :to="{name:'payments'}">Vai al pagamento</router-link>
+                        <!-- TO DO completare rotta  -->
+                        <button class="btn btn-primary" @click.native="closeOffcanvas()">Vai al pagamento</button>
+                        
                     </div>
                 </div>
             </div>

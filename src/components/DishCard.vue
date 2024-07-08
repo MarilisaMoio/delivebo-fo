@@ -15,7 +15,8 @@ export default {
   },
   methods: {
     insertDishInCart(dish){
-      // console.log(store.currentRestaurant);
+      console.log(store.currentRestaurant);
+      console.log(store.currentCart);
       if(store.currentRestaurant && store.currentRestaurant !== dish.restaurant_id) {
         this.showModal = true;
       } else {
@@ -38,6 +39,7 @@ export default {
             if(cartElement.dishInfo.id == dish.id){
                 flag = true;
                 cartElement.quantity++
+                store.totalPrice = store.totalPrice + parseFloat(dish.price)
             }
             console.log('quantità in carrello', cartElement.quantity)        
           })
@@ -47,6 +49,7 @@ export default {
               quantity: 1,
               dishInfo: dish
             }
+            store.totalPrice = store.totalPrice + parseFloat(dish.price)
             store.currentCart.push(selectedDish)
           }
         //se invece il carrello è vuoto inserisci direttamente il piatto
@@ -55,6 +58,7 @@ export default {
           quantity: 1,
           dishInfo: dish
           }
+          store.totalPrice = store.totalPrice + parseFloat(dish.price)
           store.currentCart.push(selectedDish)
         }
   
@@ -68,9 +72,11 @@ export default {
     emptyCart(dish) {
       store.currentCart = [];
       store.currentRestaurant = this.dish.restaurant_id;
+      store.totalPrice = 0;
       this.toggleModal();
     },
     saveCart() {
+      localStorage.setItem('total', store.totalPrice)
       localStorage.setItem('cart', JSON.stringify(store.currentCart));
       localStorage.setItem('restaurant', store.currentRestaurant);
     },

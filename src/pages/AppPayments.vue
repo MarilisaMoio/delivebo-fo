@@ -1,6 +1,7 @@
 <script>
 import { store } from '../store.js'
 import AppBack from '../components/AppBack.vue';
+import axios from 'axios';
 
 export default {
     name: 'AppPayments',
@@ -11,7 +12,7 @@ export default {
         return {
             store,
             validated: false,
-            name: "",
+            client_name: "",
             surname: "",
             address: "",
             email: "",
@@ -21,14 +22,31 @@ export default {
     methods: {
         getBraintree(){
             var button = document.querySelector('#submit-button');
-
+            const self = this;
             braintree.dropin.create({
                 authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
                 selector: '#dropin-container'
             }, function (err, instance) {
                 button.addEventListener('click', function () {
                     instance.requestPaymentMethod(function (err, payload) {
-                    // Submit payload.nonce to your server
+                    if(err){
+                        console.error(err);
+                        return
+                    }
+                        // Submit payload.nonce to your server
+                    axios.post('http://127.0.0.1:8000/api/orders', {
+            params: {
+                client_name: self.client_name,
+                client_surname: self.surname,
+                phone: self.cell,
+                email: self.email,
+                address: self.address,
+                total: store.totalPrice
+
+            }
+           }).then((response) =>{
+            console.log('fatto');
+           });
                     });
                 })
             })
@@ -36,7 +54,22 @@ export default {
         validateForm(){
                 let form = document.getElementById('userForm');
                 this.validated = form.checkValidity()
+            },
+        insertOrder() {
+           axios.post('http://127.0.0.1:8000/api/orders', {
+            params: {
+                client_name: this.name,
+                client_surname: this.surname,
+                phone: this.cell,
+                email: this.email,
+                address: this.address,
+                total: store.totalPrice
+
             }
+           }).then((response) =>{
+            console.log('fatto');
+           });
+        },
     },
     mounted(){
         this.getBraintree();
@@ -65,8 +98,8 @@ export default {
                      <form id="userForm">
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <label for="name">Nome<span class="asterisk">*</span></label>
-                                <input type="text" id="name" name="name" v-model="name" @keyup="validateForm()" required>
+                                <label for="client_name">Nome<span class="asterisk">*</span></label>
+                                <input type="text" id="client_name" name="client_name" v-model="client_name" @keyup="validateForm()" required>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="surname">Cognome<span class="asterisk">*</span></label>
@@ -81,8 +114,8 @@ export default {
                                 <input type="email" id="email" name="email" v-model="email" @keyup="validateForm()" required>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <label for="cell">Cellulare</label>
-                                <input type="text" id="cell" name="cell" v-model="cell" inputmode="numeric" pattern="\d{10}" @keyup="validateForm()">
+                                <label for="cell">Cellulare<span class="asterisk">*</span></label>
+                                <input type="text" id="cell" name="cell" v-model="cell" inputmode="numeric" pattern="\d{10}" @keyup="validateForm()" required>
                             </div>
                         </div>
                     </form>

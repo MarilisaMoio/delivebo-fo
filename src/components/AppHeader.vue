@@ -1,6 +1,12 @@
 <script>
+    import { store } from '../store.js'
     export default{
-        name: 'AppHeader'
+        name: 'AppHeader',
+        data(){
+            return{
+                store,
+            }
+        }
     }
 </script>
 
@@ -15,6 +21,9 @@
             <div v-if="$route.name !== 'home'">
                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="offcanvasExample">
                     <i class="fa-solid fa-cart-shopping fs-4"></i>
+                    <template v-if="store.currentCart.length > 0">
+                        <i class="fa-solid fa-circle"></i>
+                    </template>
                 </button>
             </div>
         </div>
@@ -33,7 +42,17 @@ header{
     button{
         background-color: transparent;
         border: none;
-        color: white
+        color: white;
+        position: relative;
+    }
+
+    .fa-circle{
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(20%, -30%);
+        color: red;
+        font-size: 13px
     }
 }
 

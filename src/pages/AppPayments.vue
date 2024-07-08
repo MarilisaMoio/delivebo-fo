@@ -1,94 +1,96 @@
 <script>
 import { store } from '../store.js'
+import AppBack from '../components/AppBack.vue';
 
 export default {
     name: 'AppPayments',
+    components: {
+        AppBack
+    },
     data(){
         return {
             store,
+            validated: false,
+            name: "",
+            surname: "",
+            address: "",
+            email: "",
+            cell: "",
         }
+    },
+    methods: {
+        getBraintree(){
+            var button = document.querySelector('#submit-button');
+
+            braintree.dropin.create({
+                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+                selector: '#dropin-container'
+            }, function (err, instance) {
+                button.addEventListener('click', function () {
+                    instance.requestPaymentMethod(function (err, payload) {
+                    // Submit payload.nonce to your server
+                    });
+                })
+            })
+        },
+        validateForm(){
+                let form = document.getElementById('userForm');
+                this.validated = form.checkValidity()
+            }
+    },
+    mounted(){
+        this.getBraintree();
     }
 }
 </script>
 
 <template>
     <div class="container mt-5">
+        <AppBack></AppBack>
         <div class="row">
             <!-- SECTION SISTEMA DI PAGAMENTO -->
             <div class="col-md-6 order-md-1">
                 <div class="order-summary">
                     <h1>Controlla il tuo ordine da {{ store.currentCart[0].dishInfo.restaurant.restaurant_name }}</h1>
 
-                    <!-- IMAGINE DI OGNI RISTORANTE -->
-                    <div class="restaurant-image my-3">
-                        <!-- <img src="/src/assets/sombrero-loco.jpg" alt="Restaurant Image" class="img-fluid rounded"> -->
-                    </div>
-
-                    <h2>Come vuoi pagare?</h2>
-
-                    <!-- ACCORDEON PER IL FORM DELLA CARD -->
-                    <div class="payment-option form-check">
-                        <input class="form-check-input" type="radio" name="payment" value="card" id="card" data-bs-toggle="collapse" data-bs-target="#cardCollapse" aria-expanded="false" aria-controls="cardCollapse">
-                        <label class="form-check-label" for="card">
-                            Paga con carta di debito o credito
-                            <span class="payment-icons ml-2">
-                                <img src="/src/assets/mastercard_pay.png" alt="Mastercard" class="mr-2">
-                                <img src="/src/assets/visacard_pay.png" alt="Visa">
-                            </span>
-                        </label>
-                    </div>
-
-                    <!-- CONTENUTO PER AL'ACCCORDEON PER LA CARD -->
-                    <div id="cardCollapse" class="collapse" aria-labelledby="card" data-bs-parent=".order-summary">
-                        <div class="card-body">
-                            <div>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, iste ratione at rem, tenetur magni, 
-                                libero officia natus possimus distinctio obcaecati deleniti fugit accusantium asperiores voluptate 
-                                consequuntur perferendis saepe ab?Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, 
-                                aliquam voluptates sed, eos placeat accusantium distinctio praesentium quas libero voluptas pariatur.
-                                Aliquam error reiciendis quia eius unde molestias cum illo!Lorem
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ACCORDEON PER IL FORM DELLA CARD PAYPAL -->
-                    <div class="payment-option form-check">
-                        <input class="form-check-input" type="radio" name="payment" value="paypal" id="paypal" data-bs-toggle="collapse" data-bs-target="#paypalCollapse" aria-expanded="false" aria-controls="paypalCollapse">
-                        <label class="form-check-label" for="paypal">
-                            PayPal
-                            <img src="/src/assets/paypal_pay.png" alt="PayPal" class="ml-2">
-                        </label>
-                    </div>
-
-                    <!-- CONTENUTO PER L'ACCORDEO DE LA CARD PAYPAL -->
-                    <div id="paypalCollapse" class="collapse " aria-labelledby="paypal" data-bs-parent=".order-summary">
-                        <div class="card-body">
-                            <a href=""><img src="/src/assets/link_paypal.png" alt="PayPal Link" class="paypal-link rounded"></a>
-                        </div>
-                    </div>
-
-        
-
-                    <h2 class="mt-3">Dettagli della consegna</h2>
+                    <h3 class="mt-3">Dettagli della consegna</h3>
                     <div class="delivery-option d-flex align-items-center">
                         <i class="fa-solid fa-bicycle"></i>
                         Consegna fra 35 - 65 min... o mai
                     </div>
 
-                    <h2 class="mt-4">Indirizzo di consegna</h2>
-                    <div class="add-button text-primary mt-2">+ Aggiungi un nuovo indirizzo</div>
+                     <!-- Form dati utente -->
 
-                    <div class="checkbox-option form-check mt-3">
-                        <input class="form-check-input" type="checkbox" id="posate">
-                        <label class="form-check-label" for="posate">Spunta se vuoi le posate</label>
-                    </div>
+                    <h3 class="mt-4">Informazioni per la consegna</h3>
+                     <form id="userForm">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="name">Nome<span class="asterisk">*</span></label>
+                                <input type="text" id="name" name="name" v-model="name" @keyup="validateForm()" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="surname">Cognome<span class="asterisk">*</span></label>
+                                <input type="text" id="surname" name="surname" v-model="surname" @keyup="validateForm()" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="address">Indirizzo<span class="asterisk">*</span></label>
+                                <input type="text" id="address" name="address" v-model="address" @keyup="validateForm()" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="email">Email<span class="asterisk">*</span></label>
+                                <input type="email" id="email" name="email" v-model="email" @keyup="validateForm()" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label for="cell">Cellulare</label>
+                                <input type="text" id="cell" name="cell" v-model="cell" inputmode="numeric" pattern="\d{10}" @keyup="validateForm()">
+                            </div>
+                        </div>
+                    </form>
 
-                    <div class="checkbox-option form-check mt-3">
-                        <input class="form-check-input" type="checkbox" id="promo">
-                        <label class="form-check-label" for="promo">Spunta la casella se preferisci non ricevere offerte  via e-mail da Deliveboo.</label>
-                    </div>
+                    <!-- Braintree drop-in -->
+                    <div id="dropin-container"></div>
+                    <button id="submit-button" class="button button--small button--green" :disabled=!validated>Purchase</button>
 
-                    <button class="order-button btn btn-block mt-4">Ordina per la consegna!!!!!!!!!</button>
                 </div>
             </div>
 
@@ -105,7 +107,7 @@ export default {
                         <span>Gratuito</span>
                     </div>
                     <div class="promo-box bg-purple text-white p-2 mt-3 rounded">
-                        Risparmia 0,38 € con Deliveboo
+                        Hai risparmiato 1,38 € con Deliveboo
                     </div>
                     <div class="cart-item d-flex justify-content-between mt-2">
                         <strong>Totale</strong>
@@ -164,4 +166,69 @@ export default {
     height: auto; 
     border-radius: 20px;
 }
+
+//Braintree
+.button {
+  cursor: pointer;
+  font-weight: 500;
+  left: 3px;
+  line-height: inherit;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+}
+
+.button--small {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+}
+
+.button--green {
+  outline: none;
+  background-color: $main_color;
+  border-color: $main_color;
+  color: white;
+  transition: all 200ms ease;
+}
+
+.button--green:hover {
+  background-color: #169280;
+  color: white;
+}
+
+button:disabled{
+    background-color: gray;
+    border-color: gray;
+    &:hover{
+        background-color: gray;
+        border-color: gray;
+    }
+}
+
+//form
+.asterisk{
+    color: $main_color
+}
+
+form{
+    max-width: 500px;
+    & input{
+        border: 1px solid rgb(168, 184, 185);
+        margin-top: 0;
+        width: 300px;
+    }
+    & input:focus{
+        outline-color: $main_color;
+    }
+    & * + *{
+        margin-top: 10px;
+    }
+}
+
 </style>

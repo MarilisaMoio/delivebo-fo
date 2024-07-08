@@ -1,6 +1,13 @@
 <script>
+import { store } from '../store.js'
+
 export default {
     name: 'AppPayments',
+    data(){
+        return {
+            store,
+        }
+    }
 }
 </script>
 
@@ -10,7 +17,7 @@ export default {
             <!-- SECTION SISTEMA DI PAGAMENTO -->
             <div class="col-md-6 order-md-1">
                 <div class="order-summary">
-                    <h1>Controlla il tuo ordine da Panda</h1>
+                    <h1>Controlla il tuo ordine da {{ store.currentCart[0].dishInfo.restaurant.restaurant_name }}</h1>
 
                     <!-- IMAGINE DI OGNI RISTORANTE -->
                     <div class="restaurant-image my-3">
@@ -89,21 +96,9 @@ export default {
             <div class="col-md-6 order-md-2">
                 <div class="cart-summary bg-light p-3 mt-4 mt-md-0 rounded">
                     <h2>Carrello</h2>
-                    <div class="cart-item d-flex justify-content-between">
-                        <span>4x Gyoza</span>
-                        <span>23,20 €</span>
-                    </div>
-                    <div class="cart-item d-flex justify-content-between">
-                        <span>1x Coca - Cola</span>
-                        <span>2,90 €</span>
-                    </div>
-                    <div class="cart-item d-flex justify-content-between">
-                        <span>Subtotale</span>
-                        <span>26,10 €</span>
-                    </div>
-                    <div class="cart-item d-flex justify-content-between">
-                        <span>Spese di servizio</span>
-                        <span>1,57 €</span>
+                    <div v-for="dish in store.currentCart" class="cart-item d-flex justify-content-between">
+                        <span><span>x{{ dish.quantity }}</span> {{ dish.dishInfo.dish_name }}</span>
+                        <span>{{ dish.dishInfo.price * dish.quantity }}€</span>
                     </div>
                     <div class="cart-item d-flex justify-content-between">
                         <span>Spese di consegna</span>

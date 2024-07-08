@@ -70,7 +70,7 @@
                         <div>[cifra totale]</div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <!-- TO DO completare rotta  --><router-link  class="btn btn-primary" :to="{name:''}">Vai al pagamento</router-link>
+                        <!-- TO DO completare rotta  --><router-link  class="btn btn-primary" :to="{name:'payments'}">Vai al pagamento</router-link>
                     </div>
                 </div>
             </div>

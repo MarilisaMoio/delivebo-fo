@@ -3,11 +3,13 @@
 <script>
 import axios from 'axios';
 import DishCard from "../components/DishCard.vue"
+import AppBack from '../components/AppBack.vue';
 
 export default {
   name: 'AppDishes',
   components: {
     DishCard,
+    AppBack
   },
   data() {
     return {
@@ -34,6 +36,7 @@ export default {
 <template>
   <section>
     <div class="container">
+      <AppBack></AppBack>
       <div class="d-flex align-items-center restaurant-info mt-4">
         <div class="image-clipper me-4">
           <img v-if="restaurant.img !== null" class="h-100" :src="`http://127.0.0.1:8000/storage/${restaurant.img}`" :alt="restaurant.name">

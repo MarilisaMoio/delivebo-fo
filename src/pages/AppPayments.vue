@@ -1,8 +1,12 @@
 <script>
 import { store } from '../store.js'
+import AppBack from '../components/AppBack.vue';
 
 export default {
     name: 'AppPayments',
+    components: {
+        AppBack
+    },
     data(){
         return {
             store,
@@ -13,6 +17,7 @@ export default {
 
 <template>
     <div class="container mt-5">
+        <AppBack></AppBack>
         <div class="row">
             <!-- SECTION SISTEMA DI PAGAMENTO -->
             <div class="col-md-6 order-md-1">

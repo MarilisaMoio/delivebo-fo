@@ -125,7 +125,7 @@ export default {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="toggleModal">No</button>
-          <button type="button" class="btn btn-primary" @click="emptyCart(dish), insertDishInCart(dish)">Aggiungi il nuovo piatto</button>
+          <button type="button" class="btn ms-color" @click="emptyCart(dish), insertDishInCart(dish)">Aggiungi il nuovo piatto</button>
         </div>
       </div>
     </div>
@@ -265,6 +265,12 @@ export default {
 .button-19:active {
   border-width: 4px 0 0;
   background: none;
+}
+
+//modale
+.ms-color{
+  background-color: $main_color;
+  color: white;
 }
 
 </style>

@@ -29,24 +29,28 @@ export default {
             }, function (err, instance) {
                 button.addEventListener('click', function () {
                     instance.requestPaymentMethod(function (err, payload) {
-                    if(err){
-                        console.error(err);
-                        return
-                    }
-                        // Submit payload.nonce to your server
-                    axios.post('http://127.0.0.1:8000/api/orders', {
-            params: {
-                client_name: self.client_name,
-                client_surname: self.surname,
-                phone: self.cell,
-                email: self.email,
-                address: self.address,
-                total: store.totalPrice
+                        if(err){
+                            console.error(err);
+                            return
+                        }
+                            // Submit payload.nonce to your server
+                        axios.post('http://127.0.0.1:8000/api/orders', {
+                            params: {
+                                client_name: self.client_name,
+                                client_surname: self.surname,
+                                phone: self.cell,
+                                email: self.email,
+                                address: self.address,
+                                total: store.totalPrice
+                            }
+                        }).then((response) =>{
+                            store.currentRestaurant = null;
+                            store.currentCart = [];
+                            store.totalPrice = 0;
+                            localStorage.clear();
 
-            }
-           }).then((response) =>{
-            console.log('fatto');
-           });
+                            self.$router.push({ name: 'ordersuccess' });
+                        });
                     });
                 })
             })
@@ -55,21 +59,6 @@ export default {
                 let form = document.getElementById('userForm');
                 this.validated = form.checkValidity()
             },
-        insertOrder() {
-           axios.post('http://127.0.0.1:8000/api/orders', {
-            params: {
-                client_name: this.name,
-                client_surname: this.surname,
-                phone: this.cell,
-                email: this.email,
-                address: this.address,
-                total: store.totalPrice
-
-            }
-           }).then((response) =>{
-            console.log('fatto');
-           });
-        },
     },
     mounted(){
         this.getBraintree();
@@ -80,6 +69,7 @@ export default {
 <template>
     <div class="container mt-5">
         <AppBack></AppBack>
+        <template v-if="store.currentCart.length > 0">
         <div class="row">
             <!-- SECTION SISTEMA DI PAGAMENTO -->
             <div class="col-md-6 order-md-1">
@@ -149,6 +139,12 @@ export default {
                 </div>
             </div>
         </div>
+        </template>
+        <template v-else>
+            <div class="d-flex justify-content-center mt-5">
+                <h1 class="fw-bold fs-1 margin-auto ms-width text-center">Non è stato ancora inserito nessun piatto nel carrello, torna ai ristoranti per poter procedere con l'acquisto.</h1>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -262,6 +258,11 @@ form{
     & * + *{
         margin-top: 10px;
     }
+}
+
+.ms-width{
+    max-width: 700px;
+
 }
 
 </style>

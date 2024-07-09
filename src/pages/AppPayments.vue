@@ -41,7 +41,9 @@ export default {
                                 phone: self.cell,
                                 email: self.email,
                                 address: self.address,
-                                total: store.totalPrice
+                                total: store.totalPrice,
+                                restaurant_id: store.currentRestaurant,
+                                cart: store.currentCart
                             }
                         }).then((response) =>{
                             store.currentRestaurant = null;

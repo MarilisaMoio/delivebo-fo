@@ -53,7 +53,7 @@ export default {
           </div>
         </div>
       </div>
-      <span>*Tutti i piatti contrassegnati con  <i class="fa-brands fa-envira"></i> sono privi di carne animale. </span>  
+      <span>*Tutti i piatti contrassegnati con  <i class="fa-brands fa-envira"></i> sono vegetariani.</span>  
       <div class="d-flex flex-wrap gap-1 justify-content-center"> 
          <DishCard :class="'fade-in delay-'" v-for="dish in dishes" :dish="dish"></DishCard>
       </div>

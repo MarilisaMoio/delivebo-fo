@@ -66,6 +66,40 @@ export default {
         this.saveCart();
       }
     },
+
+    increaseQuantity(dish) {
+      let selectedDish = store.currentCart.find(cartElement => cartElement.dishInfo.id === dish.id);
+      if (selectedDish) {
+        selectedDish.quantity++;
+        store.totalPrice += parseFloat(dish.price);
+      } else {
+        this.insertDishInCart(dish);
+      }
+      this.saveCart();
+    },
+
+    decreaseQuantity(dish) {
+      let index = store.currentCart.findIndex(item => item.dishInfo.id === dish.id);
+      if (index !== -1) {
+        if (store.currentCart[index].quantity == 1) {
+          store.currentCart.splice(index, 1);
+          store.totalPrice -= parseFloat(dish.price);
+          if (store.currentCart.length == 0) {
+            store.currentRestaurant = null;
+          }
+        } else {
+          store.currentCart[index].quantity--;
+          store.totalPrice -= parseFloat(dish.price);
+        }
+        this.saveCart();
+      }
+    },
+
+    getQuantity(dish) {
+      let item = store.currentCart.find(item => item.dishInfo.id === dish.id);
+      return item ? item.quantity : 0;
+    },
+
     toggleModal() {
       this.showModal = !this.showModal;
     },
@@ -105,10 +139,15 @@ export default {
         <div class="description p-3">{{dish.description}}</div>
         <div class="fst-italic" v-if="!dish.description">NESSUNA DESCRIZIONE DISPONIBILE</div> 
       </div>
-    
-      <div class="d-flex justify-content-center mb-2">
-        <button @click="insertDishInCart(dish)" class="button-19" role="button">AGGIUNGI <i class="fa-solid fa-cart-plus"></i></button> 
-      </div>
+      <div class="d-flex justify-content-center justify-content-evenly mb-2 p-1">Quantità nel carrello:
+
+        <div class="d-flex gap-2">
+          <span @click="decreaseQuantity(dish)" class="ms-hover"><i class="fa-solid fa-minus"></i></span>
+          <div class="quantity-box">{{ getQuantity(dish) }}</div>
+          <span @click="increaseQuantity(dish)" class="ms-hover"> <i class="fa-solid fa-plus"></i> </span>
+        
+        </div>
+        </div>
     </div>
     </div>
   </div>
@@ -125,7 +164,7 @@ export default {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="toggleModal">No</button>
-          <button type="button" class="btn ms-color" @click="emptyCart(dish), insertDishInCart(dish)">Aggiungi il nuovo piatto</button>
+          <button type="button" class="btn btn-primary" @click="emptyCart(dish), insertDishInCart(dish)">Aggiungi il nuovo piatto</button>
         </div>
       </div>
     </div>
@@ -140,16 +179,26 @@ export default {
   .dish-card-container {
     width: 320px;
     margin: 40px;
+
+      .quantity-box{
+        border: 2px solid grey;
+        border-radius: 4px;
+        padding: 0 6px 0 6px;
+      }
+
+      .fa-plus, .fa-minus{
+        cursor: pointer;
+      }
   }
 
   .card {
     height: 420px;
     border-radius: 28px;
-    background-color: rgba($main_color, 0.3); 
+    background: linear-gradient(to bottom left, $main-color, #f2f2f2);  
     box-shadow: 0 6px 10px rgba(0, 0, 0, 1);
     text-align: center;
     position: relative;
-  
+    
     .dish-content-container {
       min-height: 160px;
     }
@@ -198,79 +247,6 @@ export default {
     transform: scale(1.1);
     border: 3px solid $main_color;
     transition: transform 0.7s;
-}
-
-/* BOTTONE FROM WEBBBBBB */
-
-.button-19 {
-  appearance: button;
-  background-color: rgb(255, 89, 0);
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: din-round,sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: .8px;
-  line-height: 20px;
-  margin: 0;
-  outline: none;
-  overflow: visible;
-  padding: 8px 10px;
-  text-align: center;
-  text-transform: uppercase;
-  touch-action: manipulation;
-  transform: translateZ(0);
-  transition: filter .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  width: 50%;
-}
-
-.button-19:after {
-  background-clip: padding-box;
-  background-color: rgb(255, 123, 0);
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
-}
-
-.button-19:main,
-.button-19:focus {
-  user-select: auto;
-}
-
-.button-19:hover:not(:disabled) {
-  filter: brightness(1.1);
-  -webkit-filter: brightness(1.1);
-}
-
-.button-19:disabled {
-  cursor: auto;
-}
-
-.button-19:active {
-  border-width: 4px 0 0;
-  background: none;
-}
-
-//modale
-.ms-color{
-  background-color: $main_color;
-  color: white;
 }
 
 </style>

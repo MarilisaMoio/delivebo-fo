@@ -19,7 +19,7 @@ export default {
             cell: "",
         }
     },
-    methods: {
+        methods: {
         getBraintree(){
             var button = document.querySelector('#submit-button');
             const self = this;

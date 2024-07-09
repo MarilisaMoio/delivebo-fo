@@ -15,7 +15,10 @@
             if(store.currentCart[index].quantity == 1){
                 store.currentCart.splice(index, 1);
                 console.log('Elemento eliminato');
-                store.totalPrice = (store.totalPrice - parseFloat(dish.dishInfo.price))
+                store.totalPrice = (store.totalPrice - parseFloat(dish.dishInfo.price));
+                if(store.currentCart.length == 0){
+                    store.currentRestaurant = null;
+                }
             }else{
                 store.currentCart[index].quantity--;
                 store.totalPrice = (store.totalPrice - parseFloat(dish.dishInfo.price));

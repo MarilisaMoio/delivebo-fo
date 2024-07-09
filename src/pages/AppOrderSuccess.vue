@@ -23,10 +23,10 @@ export default {
                 </div>
                 <h2 class="mt-4 font-weight-bold text-1">GRAZIE</h2>
                 <h3 class="mb-3">IL TUO ORDINE È STATO CONFERMATO</h3>
-                <p class="text-muted">Ti invieremo a breve una conferma via email all'indirizzo example@contrado.com.</p>
+                <p class="text-muted">Ti invieremo a breve una conferma sull'indirizzo email fornito.</p>
               </div>
   
-              <div class="bg-white text-dark p-4 rounded">  
+              <div class="text-dark p-4 rounded">  
                 <div class="order-progress">
                   <div class="progress-step col-3 active">
                     <div class="step-icon text-white"><i class="fa-solid fa-check"></i></div>

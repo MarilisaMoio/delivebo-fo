@@ -3,6 +3,7 @@ import AppRestaurants from './pages/AppRestaurants.vue';
 import AppDishes from './pages/AppDishes.vue';
 import AppHome from './pages/AppHome.vue';
 import AppPayments from './pages/AppPayments.vue';
+import AppOrderSuccess from './pages/AppOrderSuccess.vue';
 const router = createRouter({	
     history: createWebHistory(),
     routes: [
@@ -25,7 +26,12 @@ const router = createRouter({
             path: '/payments',
             name: 'payments',
             component: AppPayments,
-          },
+        },
+        {
+            path: '/ordersuccess',
+            name: 'ordersuccess',
+            component: AppOrderSuccess,
+        },
     ]
 });
 

@@ -4,6 +4,8 @@ import AppDishes from './pages/AppDishes.vue';
 import AppHome from './pages/AppHome.vue';
 import AppPayments from './pages/AppPayments.vue';
 import AppOrderSuccess from './pages/AppOrderSuccess.vue';
+import AppOrderFail from './pages/AppOrderFail.vue';
+
 const router = createRouter({	
     history: createWebHistory(),
     routes: [
@@ -31,6 +33,11 @@ const router = createRouter({
             path: '/ordersuccess',
             name: 'ordersuccess',
             component: AppOrderSuccess,
+        },
+        {
+            path: '/orderfail',
+            name: 'orderfail',
+            component: AppOrderFail,
         },
     ]
 });

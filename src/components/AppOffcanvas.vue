@@ -81,7 +81,7 @@
                         </div>
                         <div class="d-flex justify-content-between mb-3 fw-bold">
                             <div>Subtotale:</div>
-                            <div>{{ parseFloat(singleItem.dishInfo.price * singleItem.quantity) }} €</div>
+                            <div>{{ parseFloat(singleItem.dishInfo.price * singleItem.quantity).toFixed(2) }} €</div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                 <div class="mt-4">
                     <div class="d-flex justify-content-between fw-bold">
                         <div>Totale dell'ordine</div>
-                        <div>{{ store.totalPrice }} €</div>
+                        <div>{{ parseFloat(store.totalPrice).toFixed(2) }} €</div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <!-- TO DO completare rotta  -->

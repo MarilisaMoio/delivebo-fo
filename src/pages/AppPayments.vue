@@ -138,7 +138,7 @@ export default {
                     <h2>Carrello</h2>
                     <div v-for="dish in store.currentCart" class="cart-item d-flex justify-content-between">
                         <span><span>x{{ dish.quantity }}</span> {{ dish.dishInfo.dish_name }}</span>
-                        <span>{{ dish.dishInfo.price * dish.quantity }}€</span>
+                        <span>{{ parseFloat(dish.dishInfo.price * dish.quantity).toFixed(2) }}€</span>
                     </div>
                     <div class="cart-item d-flex justify-content-between">
                         <span>Spese di consegna</span>
@@ -149,7 +149,7 @@ export default {
                     </div>
                     <div class="cart-item d-flex justify-content-between mt-2">
                         <strong>Totale</strong>
-                        <strong>{{ store.totalPrice }}€</strong>
+                        <strong>{{ parseFloat(store.totalPrice).toFixed(2) }}€</strong>
                     </div>
                 </div>
             </div>

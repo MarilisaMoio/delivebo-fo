@@ -17,6 +17,7 @@ export default {
             address: "",
             email: "",
             cell: "",
+            clientToken: "",
         }
     },
         methods: {
@@ -24,7 +25,7 @@ export default {
             var button = document.querySelector('#submit-button');
             const self = this;
             braintree.dropin.create({
-                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+                authorization: this.clientToken,
                 selector: '#dropin-container'
             }, function (err, instance) {
                 button.addEventListener('click', function () {
@@ -32,6 +33,11 @@ export default {
                         if(err){
                             console.error(err);
                             return
+                        }
+                        //errore manuale della carta 4000 1111 1111 1115
+                        if(payload.details.bin == "400011"){
+                            self.$router.push({ name: 'orderfail' });
+                            return;
                         }
                             // Submit payload.nonce to your server
                         axios.post('http://127.0.0.1:8000/api/orders', {
@@ -58,12 +64,19 @@ export default {
             })
         },
         validateForm(){
-                let form = document.getElementById('userForm');
-                this.validated = form.checkValidity()
-            },
+            let form = document.getElementById('userForm');
+            this.validated = form.checkValidity();
+        },
+        getToken(){
+            axios.get('http://127.0.0.1:8000/token')
+            .then((response) => {
+                this.clientToken = response.data.token;
+                this.getBraintree();
+            })
+        },
     },
     mounted(){
-        this.getBraintree();
+        this.getToken();
     }
 }
 </script>

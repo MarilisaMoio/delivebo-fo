@@ -100,7 +100,7 @@ export default {
                      <!-- Form dati utente -->
 
                     <h3 class="mt-4">Informazioni per la consegna</h3>
-                     <form id="userForm">
+                     <form class="ms-form" id="userForm">
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <label for="client_name">Nome<span class="asterisk">*</span></label>
@@ -165,6 +165,18 @@ export default {
 
 <style scoped lang="scss">
 @use '../style/partials/variables' as *;
+
+.ms-form {
+    min-width: 100%;
+  
+    label{       
+        width: 30%;
+    }
+    input{
+        width: 70%;
+    }
+}
+
 
 .payment-icons img {
     height: 37px;

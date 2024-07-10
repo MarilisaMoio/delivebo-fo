@@ -273,11 +273,13 @@ form{
     & * + *{
         margin-top: 10px;
     }
+    input:invalid {
+        border-color: red;
+    }   
 }
 
 .ms-width{
     max-width: 700px;
 
 }
-
 </style>

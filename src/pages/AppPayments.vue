@@ -126,7 +126,7 @@ export default {
 
                     <!-- Braintree drop-in -->
                     <div id="dropin-container"></div>
-                    <button id="submit-button" class="button button--small button--green" :disabled=!validated>Purchase</button>
+                    <button id="submit-button" class="button button--small button--green" :disabled=!validated>Procedi all'ordine</button>
 
                 </div>
             </div>

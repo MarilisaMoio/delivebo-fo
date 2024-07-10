@@ -81,7 +81,7 @@
  overflow: hidden;
 }
 .ms-margin{
-    margin-bottom: 170px;
+    margin-bottom: clamp(30px, 10vw, 170px);
 }
 .ms-decoration-none{
 text-decoration: none;

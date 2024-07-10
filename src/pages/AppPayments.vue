@@ -85,16 +85,15 @@ export default {
     <div class="container mt-5">
         <AppBack></AppBack>
         <template v-if="store.currentCart.length > 0">
+        <h1>Controlla il tuo ordine da {{ store.currentCart[0].dishInfo.restaurant.restaurant_name }}</h1>
         <div class="row">
             <!-- SECTION SISTEMA DI PAGAMENTO -->
-            <div class="col-md-6 order-md-1">
+            <div class="col-md-6">
                 <div class="order-summary">
-                    <h1>Controlla il tuo ordine da {{ store.currentCart[0].dishInfo.restaurant.restaurant_name }}</h1>
-
                     <h3 class="mt-3">Dettagli della consegna</h3>
                     <div class="delivery-option d-flex align-items-center">
                         <i class="fa-solid fa-bicycle"></i>
-                        Consegna fra 35 - 65 min... o mai
+                        Consegna fra 35 - 65 min
                     </div>
 
                      <!-- Form dati utente -->
@@ -133,7 +132,7 @@ export default {
             </div>
 
             <!-- SECTION CARRELLO -->
-            <div class="col-md-6 order-md-2">
+            <div class="col-md-6 order-first order-md-last">
                 <div class="cart-summary bg-light p-3 mt-4 mt-md-0 rounded">
                     <h2>Carrello</h2>
                     <div v-for="dish in store.currentCart" class="cart-item d-flex justify-content-between">
